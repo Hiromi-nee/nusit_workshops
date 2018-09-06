@@ -55,5 +55,6 @@ def main():
     pred = retval['prediction'].index(max(retval['prediction']))
     print("Actual: %d " % y_test[idx])
     print("Predicted %d" % pred)
+    
 if __name__ == "__main__":
     main()
