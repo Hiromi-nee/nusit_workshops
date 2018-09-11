@@ -11,12 +11,12 @@ from keras.utils import to_categorical
 pp = PrettyPrinter(indent=4)
 
 
-
+#172.19.186.4
 def classify(frame):
     _, buffer = cv2.imencode('.jpg', frame)
     frame = base64.b64encode(buffer).decode('utf-8')
     # Send to API
-    r = requests.post('http://localhost:8881/classify',
+    r = requests.post('http://172.19.186.4:8881/classify',
         json={'image': frame, 'frame_no': 0})
 
     # Print result from API

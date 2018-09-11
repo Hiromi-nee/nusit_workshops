@@ -16,6 +16,7 @@ import requests
 from json import dumps, loads
 from keras.models import model_from_json
 from flask import Flask, request, jsonify
+import time
 app = Flask(__name__)
 
 class ClassificationModel():
@@ -55,7 +56,9 @@ def decode_image(image):
 def classify():
     data = request.get_json()
     image = decode_image(data['image'])
+    cur_time = time.time()
     retval = classification_model.classify(image)
+    elapsed_time = time.time() - cur_time
     print(retval)
     # # print data received
     # print(json_data) 
@@ -64,7 +67,7 @@ def classify():
     # print(type(json_data))
     
     # convert to json before sending response
-    return jsonify({"prediction":retval[0].tolist()})
+    return jsonify({"prediction":retval[0].tolist(), "elapsed_time":elapsed_time})
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 8881)
